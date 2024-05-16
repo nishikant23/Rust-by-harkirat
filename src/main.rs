@@ -4,4 +4,13 @@ fn main() {
     let z: f32 = 55.005;
 
     println!("x:{}, y:{}, z:{}",x,y,z);
+
+    let mut a = 10;
+    for i in 0..100{
+        a = a+i;
+    }
+    print!("a:{}", a);
+     
+
+    
 }
