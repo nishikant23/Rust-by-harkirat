@@ -24,5 +24,11 @@ fn main() {
     if is_male && is_above_18 {
         print!("you are legal to drive & Legal Male");
     } 
+
+    //Strings
+    // strings size vary in RUST as per user it increase its Size in RAM diff. to handle
+    // unlike ints, we cant able to reserved size for string, 
+    let greetings = String::from("Hello, everyone I am learning rust");
+    println!("{}",greetings);  //way of printing any data in RUST curlyBraces{}
     
 }
