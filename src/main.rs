@@ -45,4 +45,54 @@ fn main() {
     }
     
     //println!("{}", char1.unwrap());   Another way to avoid  but throw error   
+
+    //Conditional loops//
+
+    for i in 0..10 {  //this prints from 0 to 9 **not 10
+        println!("{}", i);
+    }
+
+    for j in 0..5 { 
+        println!("Hello World! {}", j) //value of j also prints
+    }
+
+    for _k in 0..5 {  // we use underscore in fornt of k =_k, do when u know u r not gonna use iterating variable
+        println!("Hello World!") //other wise it will give error
+    }
+
+    //Charater loop
+    let sentence = String::from(" Nishikant is my name");
+    let first_word = get_last_word(sentence);
+    println!("Last word: {}", first_word);  //"{}" imp to print data 
+}
+
+//u can not write fun-name as getLastWord ->error required in "snakeCase"
+fn get_last_word(sentence: String) -> String {   //1st-String is Datatype of 'sentence', 2nd-String- return-type of a function
+    let mut ans = String::from(""); //empty string initialised
+
+    for char in sentence.chars() {
+        ans.push_str(char.to_string().as_str());
+        if char == ' ' {
+            break;
+        }
+    }
+    return ans;
+
+//  char.to_string() converts the character to a String.
+//  .as_str() converts the String to a string slice (&str). casue push_str accepts stringSlice=&str not char
+//  ans.push_str(...) appends this string slice to the String ans.
+
+//String is a heap-allocated, growable string type.
+//It owns the string data and manages its memory.
+//Example: let s = String::from("hello");
+
+//&str is a string slice, which is a borrowed reference to a string.
+//It can refer to part or all of a string.
+//It is a view into a String or a string literal without taking ownership.
+//Example: let s: &str = "hello"; or let slice: &str = &s[0..4];
+
+//Immutability: &str is immutable, meaning you cannot modify the string data through a &str reference.
+//Borrowed: A string slice borrows the string data it refers to, which means it does not own the data and is subject to Rust's borrowing rules.
+//Efficient: String slices are efficient because they avoid copying the string data. They just point to a part of the string
+
 }
