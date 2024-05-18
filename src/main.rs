@@ -64,8 +64,19 @@ fn main() {
     let sentence = String::from(" Nishikant is my name");
     let first_word = get_last_word(sentence);
     println!("Last word: {}", first_word);  //"{}" imp to print data 
+
+    //FUNCTIONS in RUST
+
+    let a = 10;
+    let b = 25;
+    let sum: i32 = get_sum(a, b);
+    println!("Sum of {} and  {} is : {}", a,b,sum);
+
 }
 
+fn get_sum(a:i32 ,b:i32) -> i32{
+    return a+b;
+}
 //u can not write fun-name as getLastWord ->error required in "snakeCase"
 fn get_last_word(sentence: String) -> String {   //1st-String is Datatype of 'sentence', 2nd-String- return-type of a function
     let mut ans = String::from(""); //empty string initialised
