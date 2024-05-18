@@ -72,6 +72,14 @@ fn main() {
     let sum: i32 = get_sum(a, b);
     println!("Sum of {} and  {} is : {}", a,b,sum);
 
+    //MEMORY MANAGEMENT
+    //Jargon-1 : Mutability
+    let temp = 10; //Rust bydefault makes each var(int,char,string,bool) = immutable
+    //it makes multithread to access this var w/o worry/check if it is changed/updtaed or not, makes code faster.
+    //Deliberately we have to specify the var is mutable/changable 'let mut temp'
+    //other langs; javascript also has immutable feature of vars. but not bydefault they are.
+
+
 }
 
 fn get_sum(a:i32 ,b:i32) -> i32{
