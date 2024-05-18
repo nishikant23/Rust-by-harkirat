@@ -73,18 +73,53 @@ fn main() {
     println!("Sum of {} and  {} is : {}", a,b,sum);
 
     //MEMORY MANAGEMENT
-    //Jargon-1 : Mutability
-    let temp = 10; //Rust bydefault makes each var(int,char,string,bool) = immutable
+    //Jargon-1 : Mutability MM
+    let _temp = 10; //Rust bydefault makes each var(int,char,string,bool) = immutable
     //it makes multithread to access this var w/o worry/check if it is changed/updtaed or not, makes code faster.
     //Deliberately we have to specify the var is mutable/changable 'let mut temp'
     //other langs; javascript also has immutable feature of vars. but not bydefault they are.
 
+    //Jargon-2 : Stack vs Heap MM
+    //fixed-size-var(int,bool,arr), 1-over-other like recursive stack fun-call, STACKS-MM 
+    //var(string, list/vector) dynamic-space on runtime req. 
+    //Hence, STACK(ptr/ref, lenOfDynVar, CapacityOfHEAP) --->points to 1st elem.ofDynData-address & move 1step below it to access.nextDynData in HEAP.
+    //On runtime Update of DynData.size().Heap.capacity, new HEAP.Capacity crted in another Adds. in RAM & STACK(ptr,len,cap) -->to new HEAP
+    //Conclusion: STACK is Owns his DATA and access directly && HEAP asks OS for Data allocation each time Ownership of Memory heaps doesn't have.
+
+    stcack_fn();
+    heap_fn();
+    update_fn();
 
 }
+//STACK vs HEAP tpc
+fn stcack_fn() {
+    let t = 25;
+    let p = 35;
+    println!("Stack: t is {} and p is {}",t,p);
+}
 
+fn heap_fn() {
+    let str1 = String::from("Hello");
+    let str2 = String::from("World");
+
+    let combine = format!("{} {}",str1, str2);
+    println!("Heap: Combined str - {}", combine);
+}
+
+fn update_fn() {
+    let mut s = String::from("Before update text");
+    println!("Original: {}",s);
+    println!("capacity: {}, length: {}, pointer: {:p}",s.capacity(), s.len(), s.as_ptr()); //shows, actualHeap-capacity, lengthOfS.data,STACK-ptr-point to which M.adds of HEAP
+
+    s.push_str("and some additional text");
+    println!("Updated: {}",s);
+    println!("capacity: {}, length: {}, pointer: {:p}",s.capacity(), s.len(), s.as_ptr());
+}
+//Function Topic
 fn get_sum(a:i32 ,b:i32) -> i32{
     return a+b;
 }
+
 //u can not write fun-name as getLastWord ->error required in "snakeCase"
 fn get_last_word(sentence: String) -> String {   //1st-String is Datatype of 'sentence', 2nd-String- return-type of a function
     let mut ans = String::from(""); //empty string initialised
