@@ -114,6 +114,45 @@ fn update_fn() {
     s.push_str("and some additional text");
     println!("Updated: {}",s);
     println!("capacity: {}, length: {}, pointer: {:p}",s.capacity(), s.len(), s.as_ptr());
+
+    //Jargon-3: Ownership 
+    // int[] arr = new int[5]; STACKStroes=ref ref-points to HEAPStores=new.5.sizeArraySpace
+    //H->int[5] it owner is S->ref, if 'ref' deleted == RUSt will cleare 'int[5]' from Heap
+
+    //Direct or By-rerfrence Ownership transfer
+    fn owner() {
+        let s1 = String::from("hello"); //OwnerAtStack-.s1 of "hello"At-Heap
+
+        let s2 = s1; //2-owners of 'hello" ,NO not allowed in Rust, this line, 
+        //makes s2.newOwner of 'hello' & s1.owner deleted from Stack. 
+        //No 2-owners at same time allowed to 1-heapData can lead "Danggaling ptr error" & "Double free error"
+        //println!("{}",s1)  //give error
+        println!("{}", s2)  //error free new owner of 'hello""
+
+        //Danggaling ptr error, s1&s2 both pts to 'hello', if 'hello' deleted with s1 say, s2 still there pointing
+        //that addresss on heap, but that addresss has anyNewData which will try to access s2 as think it is'hello'
+
+        //double free eror, s1&s2 both pts to 'hello', if 'hello' deleted with s1 say, s2 still there pointing
+        //that addresss on heap, but that addresss has anyNewData, if we now Delete s2-also this s2 try to delete
+        //'heelo' from that locatn. which is not there and try to delete newData cause Double-free/delete error.
+    }
+    owner();
+    //Indirect Using functions to transfer owner ship
+
+    fn owner_2() {
+        let mut bf1 = String::from("gf_rihana");
+        bf1 = change_bf(bf1);
+        //println!("bf1 died {}", bf1) if we haven't retransfer gf him from his bf2
+        println!("bf1 got gf back {}", bf1); 
+    }
+
+    fn change_bf(bf2:String) -> String {
+        println!(" bf2 got bf1 gf in trip:  {}", bf2);
+        return bf2; //before dying bf2 return back gf_rihana to his original bf1
+    }
+
+    owner_2();
+
 }
 //Function Topic
 fn get_sum(a:i32 ,b:i32) -> i32{
