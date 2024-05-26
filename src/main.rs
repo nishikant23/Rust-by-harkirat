@@ -90,6 +90,40 @@ fn main() {
     heap_fn();
     update_fn();
 
+    //Jargon-3: REFRENCES
+    //is like pass by refrence a data, using & like:- ptr_of_c
+
+    // Type_1: W/o passing ownership to any other variable, just letting any no. of vars can borrow our data,-
+    //-for use not explicit oprtn. allowed to done on it  (borrow Rihana for only talk)
+    fn new_main() {
+        let my_str = String::from("I am rihana");
+        let str2 = &my_str; //str2 borrowed data fro my_str
+        let str3 = &my_str; //sAa
+        let _str4 = &my_str; //sAa
+        println!("str2 : {}",str2);
+        println!("str3 : {}",str3);
+        println!("owner data : {}",my_str); //Error-free, since ownership is still at my_str
+        borrow_str(&my_str); // data:Pass by refrence
+    }
+    fn borrow_str(new_str: &String) {
+        println!("new_str: {}", new_str);
+       // new_str.push_str("will u update rihana"); //ERROR Prone, since not allowed to madeCHanges on Borrowed data
+    }
+    new_main();
+
+    // TYPE-2: Can allowed to do made changes/oprtns on borrowed data also, now only 1 borrowing allowed this time
+    fn new_main2() {
+        let mut my_str = String::from("I am rihana");
+        mutable_borrow_str(&mut my_str); // data:Pass by refrence
+    }
+    fn mutable_borrow_str(new_str: &mut String) {
+        println!("new_str: {}", new_str);
+        new_str.push_str(" will u update rihana"); //ERROR Free, since passed as '&mut' mutable refrence allowed to madeCHanges on Borrowed data.
+        println!("Borrowed changes: {}", new_str);
+    }
+    new_main2();
+
+
 }
 //STACK vs HEAP tpc
 fn stcack_fn() {
