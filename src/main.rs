@@ -1,3 +1,5 @@
+//use std::fmt::Debug;
+
 fn main() {
     let x: i8 = -5;
     let y: u8 = 250;
@@ -137,6 +139,66 @@ fn main() {
         //let str4 = &mut my_str; //Error prone: CAUSE-2, Mut 
     }
     new_main3();
+
+    //Lifetime & Slice str Remains to done
+
+    //STRUCTS
+    // TYPE_01: struct = structure of our user-defined object
+    struct Users {
+        name: String,
+        age: u32,
+        isliving: bool,
+    }
+
+    fn struct_fun() {
+        let new_user = Users {
+            name: String::from("Vegita"), //String, name in Stack(name) points to HEAP(vegita)
+            age: 2000, //only stroied in STACK
+            isliving: true, //only stroied in STACK
+        };
+        println!("{} is {} yrs old & with goku {} fine.", new_user.name, new_user.age, new_user.isliving)
+    }
+    struct_fun();
+    // TYPE_02: IMPL impl struct
+    struct Rect {
+        width: u32,
+        height: u32,
+    }
+
+    impl Rect {
+        fn area(&self) -> u32 {
+            return self.width*self.height;
+        }
+        fn perimeter(&self) -> u32 {
+            2*(self.width + self.height) // reruening stment, identify by: not wrote-->> "return & ;(semicolon)"
+        }
+    }
+
+    fn find_area() {
+        let value = Rect {
+            width: 30,
+            height: 50,
+        };
+        println!("the rectangle area is {} ", value.area());
+        println!("the perimeter is {} ", value.perimeter());
+    }
+    find_area();
+
+    //TYPE-03: Unit-Struct, struct which has no attributes
+    struct NoShape;
+
+    impl NoShape {
+        fn area(&self) -> u8 {
+            return 0;
+        }
+    }
+
+    fn find_empty() {
+        let value = NoShape;
+        println!("the NoShape area is {} ", value.area());
+    }
+    find_empty();
+
 }
 
 
