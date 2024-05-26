@@ -199,6 +199,59 @@ fn main() {
     }
     find_empty();
 
+    //ENUMS
+    enum Directions { //when know limited varying varss req. instead using Strings and passing literal every where,
+                      //we can make use of enum, makes the code more string and easy coding cleaner 
+        East,
+        West,
+        North, 
+        South,
+    }
+
+    fn move_player() {
+        let player_direction = Directions::West;
+        game_move(player_direction);
+        //println!("this player moving on {} side", player_direction);
+    }
+    fn game_move(moving: Directions) {
+        //Implement code here
+    }
+    move_player();
+
+    //Type-02: Enums with values
+    enum Shapes {
+        Circle(f64),
+        Square(f64),
+        Rectangle(f64, f64),
+    }
+
+    fn area_calc(shape: Shapes) -> f64 {
+        let ans = match  shape { //shape UD-datatype matches with ENUM-Attributes,
+            Shapes::Circle(radius) => 3.14*radius*radius, //when matched do this opretions
+            Shapes::Square(side) => {  //when matched do this opretions
+                //println!("this square area: ");
+                side*side
+            },
+            Shapes::Rectangle(width, height) => width*height,  //when matched do this opretions
+        };
+        ans //returning statement, w/o use of "rerturn & ;"
+    }
+    fn main_call() {
+       let circle = Shapes::Circle(8.5);
+       let square = Shapes::Square(5.3);
+       let rect = Shapes::Rectangle(5.0, 6.0);
+
+       let mut area  = area_calc(circle);
+       println!("The circle result is {}\n.", area);
+
+       area  = area_calc(square);
+       println!("The square result is {}\n.", area);
+
+       area  = area_calc(rect);
+       println!("The rectangle result is {}\n.", area);
+    }
+    main_call();
+
 }
 
 
