@@ -123,7 +123,20 @@ fn main() {
     }
     new_main2();
 
-    
+    // TYPE - 3: Once, borrowed as MutablE, we can't borrow again RIHANA(data) as IMMUTABLE or MUTABLE
+    //CAUSE-1: For Immut, as Mut-borrower changed data, then Immut-borrower thinks what happened how my holding data chnaged
+    //CAUSE-2: Fo Mut,1_THREAD Mut-borrower changedData & 2_THREAD Mut-borrower changed-data Synchornize error ass same addres HEAp data accessed & try to change data.
+
+    fn new_main3() {
+        let mut my_str = String::from("I am Rihana");
+        let mut_borrower = &mut my_str;
+        mut_borrower.push_str(" i mutaed rihana");
+        println!("Data: {}", mut_borrower);
+        // let str2 = &mut my_str; //If str2_mutable borrower, not used the below either 1line can work, RUST smart that str2 used 
+        //let str3 = &my_str; // Error prone: CAUSE-1, Immut
+        //let str4 = &mut my_str; //Error prone: CAUSE-2, Mut 
+    }
+    new_main3();
 }
 
 
