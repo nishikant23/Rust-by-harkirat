@@ -1,4 +1,6 @@
 //use std::fmt::Debug;
+//use std::result::Result; // Ensure that you are using the Result type from the standard library
+use std::fs::{self};
 
 fn main() {
     let x: i8 = -5;
@@ -252,7 +254,134 @@ fn main() {
     }
     main_call();
 
+    //ENUM ERROR HANDALING
+
+    //Type-01: Generics:allows a variable to accept/store any dataTpye, w/o explicitly define dataType before store it there
+    struct Anytype<T> {//x, y, z, can NOT store any diff-dataType w.r.t e/o at same time.
+        x: T, //x can store any data type int/float/bool etc.
+        y: T,
+        z: T,
+    }
+    struct DiffTypes<A, B, C> { //a, b, c, can store diff-datatpyes w.r.t e/o at same time.
+        a: A, //a can store any data type int/float/bool etc.
+        b: B,
+        c: C,
+    }
+    fn generic_datatype() {
+        let int_type = Anytype{ x:5,y:6,z:10 };
+        let float_type = Anytype{ x:5.67,y:60.00,z:1.005 };
+        let bool_type = Anytype{ x:true,y:false,z:true };
+        //let diff_type = Anytype{ x:5,y:1.006,z:true }; //can't store like this x,y,z can only store same DT of any type
+
+        println!("this is int dtatatpye: {}, {}, {}",int_type.x,int_type.y, int_type.z);
+        println!("this is float dtatatpye: {}, {}, {}",float_type.x,float_type.y, float_type.z);
+        println!("this is boolean dtatatpye: {}, {}, {}\n",bool_type.x,bool_type.y, bool_type.z);
+       // println!("this is int, float, bool simultaneously used: {}, {}, {}",diff_type.x,diff_type.y, diff_type.z);
+
+       //Generic: Different data type stroe at vars at same type
+       let diff_types = DiffTypes{ a:5,b:1.006,c:true }; 
+       //can store like thisa,b,c diff DT of any type at same time
+       println!("this is int, float, bool simultaneously used: {}, {}, {}",diff_types.a,diff_types.b, diff_types.c);
+    }
+    generic_datatype();
+
+    //Type-02: Error handling enum
+    enum Result<T, E> {
+        Ok(T), //T can store any type of data
+        Err(E)
+    }
+    fn catch_error() {
+        let ans  = fs::read_to_string("example.txt"); //example.txt not present
+        match ans { // match our ans with Ok if example.txt present OR match with ERR if not present
+            Ok(content) => { 
+                println!("Data inside exampleTxt is: {}", content);
+            },
+            Err(err) => {
+                println!("ERROR: nothing inside exampleTxt: {}", err);
+            }
+        }
+        println!("This is printed after Error also:"); //this line wouldn't get printed, if match ans {...} will not use,
+        // Also if ERR found and  match ans{...} not present then the program wouldn't get compiled further & returned 'thread' panicked like error.
+    }
+    catch_error();
+
+    //Type-03: Error handling 
+    // UNCOMMENT THIS BELOW TILL 322line number
+    // fn err_by_fun() {
+    //     let _ans  = read_unsafe_file("nodata.txt".to_string());  //pass nodata.txt as arg to function
+
+    //     println!("This is printed after Error also:"); //this line wouldn't get printed, if match ans {...} will not use,
+    //     // Also if ERR found and  match ans{...} not present then the program wouldn't get compiled further & returned 'thread' panicked like error.
+    // }
+    // //Type--A: returning ERROR data as String here
+    // fn read_unsafe_file(no_txt: String) -> String {  // returning ERROR data as String here --- "-> String" to return 
+    //     let res = fs::read_to_string(no_txt); //res,try to read and store no_txt data
+    //     return res.unwrap();  //.unwrap(), will unwrap data inside no_txt if present, 
+    //     //else pass error in above call. & thread 'main' panicked at src\main.rs:318:20file
+    // }
+    // err_by_fun();
+
+
+    //Type--B: retrun enum directly in terms of OK & ERR byreturning REsult<Data, Data> 
+    //if, OK then also returns Ok-content data
+    //else-if, ERR  then also return data as Err-as.to_string();
+    //From line 329 to 354 UNCOMMENT BUT TYPE mismatched error comming in Result
+    // fn enum_err() {
+    //     let _ans  = return_enum("readme.txt".to_string());  //pass nodata.txt as arg to function
+        
+    //     // match ans {
+    //     //     Ok(data) => println!("File content: {}", data),
+    //     //     Err(err) => println!("Error: {}", err),
+    //     // }
+    //     println!("This is printed after Error also:"); //this line wouldn't get printed, if match ans {...} will not use,
+    //     // Also if ERR found and  match ans{...} not present then the program wouldn't get compiled further & returned 'thread' panicked like error.
+    // }
+    // fn return_enum(data_content: String) -> Result<String, String> { //return is 'enum' itself, hence use "->Result<DT_Want_toReturn, DT_Want_toReturn>"
+    //     let new_res = fs::read_to_string(data_content);
+    //     // match new_res {
+    //     //     Ok(data_present) => Ok(data_present),
+    //     //     Err(_) => Err("Error reading file data not present".to_string()),
+    //     // }
+
+    //     if let Ok(content) = new_res {
+    //         return println!("this is content"); //Ok(content);
+    //     } else {
+    //         return Err("Error reading file data not present".to_string());
+    //     }
+    // }
+    // fn main() {
+    //     enum_err();
+    // }
+
+    // OPTIONS Enum: To handle the NuLL-ptr error
+    // pub enum Option<T> {
+    //     Some(T),
+    //     None,
+    // }
+
+    fn find_first_a(s:String) -> Option<i32> { //try to find first char  'a' in our String s
+        for (index, character) in s.chars().enumerate() { //we will find index of 'a' found char in string
+           if character == 'a' {  
+            return Some(index as i32); // return Some(data) is OptionEnum is returning--enum as found Some-data
+            //index as i32, for our option enum<i32> we defined i32 as index size, can also use Option<usize> then--return Some(index);
+           }
+        }
+        return None;
+    }
+    fn main_option_enum() {
+        let my_str = String::from("Raman");
+        let answer = find_first_a(my_str);
+        match  answer {
+            Some(idx) => println!("the first 'a' is found at {} position", idx),
+            None => println!("the letter 'a' is not found"),
+        }
+    }
+    main_option_enum();
+
+
+        
 }
+    
 
 
 
@@ -319,6 +448,7 @@ fn update_fn() {
     owner_2();
 
 }
+
 //Function Topic
 fn get_sum(a:i32 ,b:i32) -> i32{
     return a+b;
