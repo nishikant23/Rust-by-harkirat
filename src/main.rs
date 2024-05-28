@@ -1,5 +1,10 @@
-//use std::fmt::Debug;
-//use std::result::Result; // Ensure that you are using the Result type from the standard library
+
+//Rust BootCamp Part-01 of Harkirat singh, @thanks Bhaiya
+//link to watch on youtube: https://www.youtube.com/watch?v=qP7LzZqGh30
+//Slides of bootcamp: https://projects.100xdevs.com/tracks/rust-bootcamp/Rust-Bootcamp-2
+
+//all code of 4hrs class here at one place (lines: 516), Perfectly run, just copy and try.
+
 use std::fs::{self};
 use rand::{Rng, thread_rng};
 use chrono::{Local, Utc};
@@ -406,8 +411,13 @@ fn main() {
         println!("The Local date & time is {}\n", local_time);
     }
     get_dt_time();
-
-
+    //What all libraries does rust have?
+    //A lot of them
+    //1. https://actix.rs/ - Extremely fast http server 
+    //2. https://serde.rs/ - Serializing and deserialising data in rust
+    //3. https://tokio.rs/ - Asynchronous runtime in rust
+    //4. https://docs.rs/reqwest/latest/reqwest/ - Send HTTP requests
+    //5. https://docs.rs/sqlx/latest/sqlx/ - Connect to sql database
         
 }
     
