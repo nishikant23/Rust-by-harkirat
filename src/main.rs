@@ -1,6 +1,8 @@
 //use std::fmt::Debug;
 //use std::result::Result; // Ensure that you are using the Result type from the standard library
 use std::fs::{self};
+use rand::{Rng, thread_rng};
+use chrono::{Local, Utc};
 
 fn main() {
     let x: i8 = -5;
@@ -377,6 +379,33 @@ fn main() {
         }
     }
     main_option_enum();
+
+    //lasT
+    // Cargo packages(called 'crates') similar to Node(npm-nodePackageManager) to get bexternal dependencies in our code base
+    //We can also create from scratch, but we shouldn't cause already avail to us.
+
+    //A: Generate Random number 
+    fn ran_num_gen() { 
+        let mut ran_num = thread_rng(); //inbuit to create random number, use "cargo add rand" in terminal
+        let n:u32 = ran_num.gen();                 //& then import this lib "use rand::{Rng, thread_rng};"
+        println!("the random number is {}\n", n);
+    }
+    ran_num_gen();
+
+    //B: get Date & Time
+    fn get_dt_time() {
+        let utc_time = Utc::now();  //& then import this lib "use chrono::{Local, Utc};"
+        println!("The UTC date & time {}\n", utc_time);
+
+        //format date & time
+        let formatted  = utc_time.format("%Y-%m-%d %H:%M:%S");
+        println!("The Formatted date & time {}\n", formatted);
+
+        //local our region date & time
+        let local_time = Local::now();
+        println!("The Local date & time is {}\n", local_time);
+    }
+    get_dt_time();
 
 
         
