@@ -6,7 +6,8 @@ Topics Learnt:
 2. IDE Setup
 3. Initializing a project locally
 4. Variables
-(number, strings and bools) 5. Conditionals, loops
+(number, strings and bools)
+5. Conditionals, loops
 6. Functions
 7. Structs
 8. Enums
