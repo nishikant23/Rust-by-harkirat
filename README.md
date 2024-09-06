@@ -1,4 +1,4 @@
-##Rust Language Basics
+Rust Language Basics
 
 Topics Learnt:
 
